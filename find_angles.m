@@ -25,21 +25,22 @@ f = sqrt(d^2 + (z-L1)^2);
 g = asind(d/f);
 
 
-if( x == 0 && y == 0)
-    angles(1,1) = t1;
-    angles(2,1) = t1;
-    angles(3,1) = t1;
-    angles(4,1) = t1;
-    
+if(x == 0 && y == 0)
 else 
     angles(1,1) = atand(y/x)+90;
     angles(2,1) = atand(y/x)+90;
     if (angles(1,1) <= 180)
-    angles(3,1) = atand(y/x)+90+180;  
-    angles(4,1) = atand(y/x)+90+180;
+        angles(3,1) = atand(y/x)+90+180;  
+        angles(4,1) = atand(y/x)+90+180;
     else 
-    angles(3,1) = atand(y/x)+90-180;  
-    angles(4,1) = atand(y/x)+90-180;
+        angles(3,1) = atand(y/x)+90-180;  
+        angles(4,1) = atand(y/x)+90-180;
+    end
+    if(x < 0)
+        angles(1,1) = angles(1,1)-180;
+        angles(2,1) = angles(2,1)-180;
+        angles(3,1) = angles(3,1)-180;
+        angles(4,1) = angles(4,1)-180;
     end
 end
 
@@ -71,20 +72,20 @@ t3 = read_info(mC, PRESENT_POSITION, 2)*ANGLE_UNIT;
 %==??
 if ((t1-angles(1,1)) < (t1-angles(2,1))) %INV 1 & 3 CLOSER TO T1
     if ((t2-angles(1,2)) < (t2-angles(3,2))) % INV 1 CLOSER TO T2
-        display('1 is closest')
-        inv = angles(1,:)
+%         display('1 is closest')
+        inv = angles(1,:);
         
     else
-        display('3 is closest')
-        inv = angles(3,:)
+%         display('3 is closest')
+        inv = angles(3,:);
     end
 else
     if ((t2-angles(2,2)) < (t2-angles(4,2))) % INV 2 CLOSER TO T2
-        display('2 is closest')
-        inv = angles(2,:)
+%         display('2 is closest')
+        inv = angles(2,:);
     else
-        display('4 is closest')
-        inv = angles(4,:)
+%         display('4 is closest')
+        inv = angles(4,:);
     end
 end
 
@@ -125,8 +126,8 @@ end
 
 
 
-angles
-current_angles = [t1, t2, t3]
+angles;
+current_angles = [t1, t2, t3];
 
 
 
