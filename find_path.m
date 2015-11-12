@@ -1,4 +1,9 @@
 function find_path(p1, p2)
+global mA;
+global mB;
+global mC;
+global MOVING;
+
 
 %find 3D distance between two paths (in cm)
 dist = ((p1(1)-p2(1))^2 + (p1(2)-p2(2))^2 + (p1(3)-p2(3))^2)^(0.5)
@@ -13,9 +18,14 @@ z = linspace(p1(3), p2(3), num_points);
 
 % path = zeros(num_points, 3);
 
+%MOVE TO THE FIRST CO-ORDINATE AND WAIT FOR THE MOTORS TO STOP
+angles = find_angles(x(1), y(1), z(1))
+motor_angles_packet(angles(1), angles(2), angles(3));
+while (read_info(mA, MOVING, 1) || read_info(mB, MOVING, 1) || read_info(mC, MOVING, 1))
+end
 
-for i = 1:num_points
-    angles = invkine(x(i), y(i), z(i));
+for i = 2:num_points
+    angles = find_angles(x(i), y(i), z(i));
     motor_angles_packet(angles(1), angles(2), angles(3));
 %     path(i, 1) = x(i);
 %     path(i, 2) = y(i);

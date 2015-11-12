@@ -23,10 +23,6 @@ global ARM_MOVE;
 
 
 
-current_A = 
-
-
-
 
 %COVERT FROM KINEMATIC ANGLE TO DYNAMIXEL ANGLE
 t1_o = t1 + mA_offset;
