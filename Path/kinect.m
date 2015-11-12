@@ -56,11 +56,11 @@ prm = PRM(im,'npoints', 120);
 
 
 
-start_h = impoint %[138,215];       % start point [x, y] = 
-start   = round(getPosition(start_h)) %[152,147]; 
+%start_h = impoint %[138,215];       
+start   = round(start)       %getPosition(start_h)) %[152,147]; 
 
-goal_h =  impoint %[315,194];       % goal point
-goal   = round(getPosition(goal_h))  %[315,70];
+%goal_h =  impoint %[315,194];      
+goal   = round(goal)    %getPosition(goal_h))  %[315,70];
 %prm = PRM(map);        % create navigation object
 %prm.display() 
 prm.char()
