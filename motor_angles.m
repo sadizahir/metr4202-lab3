@@ -1,32 +1,66 @@
 %MOVES THE MOTORS TO THE GIVEN ANGLES. ARGS ARE IN DEGREES
-function motor_angles(t1, t2, t3)
+function motor_angles(id, theta)
 global mA;
 global mB;
 global mC;
-global ANGLEUNIT;
+global ANGLE_UNIT;
 global MOVING;
 global GOAL_POSITION;
 global PRESENT_POSITION;
+global mA_max;
+global mA_min;
+global mA_offset;
+global mB_max;
+global mB_min;
+global mB_offset;
+global mC_max;
+global mC_min;
+global mC_offset;
+
+if (id == mA)
+    pos = round((theta+mA_offset)/ANGLE_UNIT)
+elseif (id == mB)
+    pos = round((theta+mB_offset)/ANGLE_UNIT);
+elseif (id == mC)
+   pos =  round((theta+mC_offset)/ANGLE_UNIT);
+end
+
+calllib('dynamixel', 'dxl_write_word', id, GOAL_POSITION, pos);
+
 
 %CALCULATE THE DESIRED POSITION OF THE MOTORS
-desired_A = round(t1/ANGLEUNIT);
-desired_B = round(t2/ANGLEUNIT);
-desired_C = round(t3/ANGLEUNIT);
-
-%SEND THE POSITION TO THE MOTORS
-calllib('dynamixel', 'dxl_write_word', mA, GOAL_POSITION, desired_A);
-calllib('dynamixel', 'dxl_write_word', mB, GOAL_POSITION, desired_B);
-calllib('dynamixel', 'dxl_write_word', mC, GOAL_POSITION, desired_C);
+% desired_A = round((t1+mA_offset)/ANGLE_UNIT);
+% desired_B = round((t2+mB_offset)/ANGLE_UNIT);
+% desired_C = round((t3+mC_offset)/ANGLE_UNIT);
+% 
+% %SEND THE POSITION TO THE MOTORS
+% if(desired_A < mA_max && desired_A > mA_min)
+%     calllib('dynamixel', 'dxl_write_word', mA, GOAL_POSITION, desired_A);
+% else
+%     display('out of range for mA');
+% end
+% 
+% if(desired_B < mB_max && desired_B > mB_min)
+%     calllib('dynamixel', 'dxl_write_word', mB, GOAL_POSITION, desired_B);
+% else
+%     display('out of range for mB');
+% end
+% 
+% if(desired_C < mC_max && desired_C > mC_min)
+%     calllib('dynamixel', 'dxl_write_word', mC, GOAL_POSITION, desired_C);
+% else
+%     display('out of range for mC');
+% end
 
 
 %WAITS FOR THE MOTORS TO STOP MOVING
-while (read_info(mA, MOVING, 1) || read_info(mB, MOVING, 1) || read_info(mC, MOVING, 1))
+while (read_info(id, MOVING, 1))
 end
 
 %FINDS THE ERROR BETWEEN THE DESIRED POSITION AND THE ACTUAL POSITION
-errorA = read_info(mA, PRESENT_POSITION, 2) - desired_A;
-errorB = read_info(mB, PRESENT_POSITION, 2) - desired_B;
-errorC = read_info(mC, PRESENT_POSITION, 2) - desired_C;
+% errorA = read_info(mA, PRESENT_POSITION, 2) - desired_A;
+% errorB = read_info(mB, PRESENT_POSITION, 2) - desired_B;
+% errorC = read_info(mC, PRESENT_POSITION, 2) - desired_C;
 
 
 
