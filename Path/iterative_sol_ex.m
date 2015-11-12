@@ -18,9 +18,9 @@ for i = 1:320
         break
     end
     for j = 1:240
-        world_start = pointsToWorld(cameraParams, R, t, [i j]);
-        if abs(world_start(1)-desired_start(1)) < epsilon
-            if abs(world_start(2)-desired_start(2)) < epsilon
+        start = pointsToWorld(cameraParams, R, t, [i j]);
+        if abs(start(1)-desired_start(1)) < epsilon
+            if abs(start(2)-desired_start(2)) < epsilon
                 found = 1;
                 break;
             end
@@ -40,9 +40,9 @@ for i = 1:320
         break
     end
     for j = 1:240
-        world_end = pointsToWorld(cameraParams, R, t, [i j]);
-        if abs(world_end(1)-desired_end(1)) < epsilon
-            if abs(world_end(2)-desired_end(2)) < epsilon
+        goal = pointsToWorld(cameraParams, R, t, [i j]);
+        if abs(goal(1)-desired_end(1)) < epsilon
+            if abs(goal(2)-desired_end(2)) < epsilon
                 found = 1;
                 break;
             end
@@ -50,5 +50,5 @@ for i = 1:320
     end
 end
 toc
-world_start
-world_end
+start
+goal
