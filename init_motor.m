@@ -4,6 +4,7 @@
 
 clear;
 global ANGLE_UNIT;
+global ANGLE_UNIT_MX;
 global ARM_MOVE; 
 global BROADCAST_ID;
 global INST_SYNC_WRITE;
@@ -31,6 +32,15 @@ global mB_offset;
 global mC_max;
 global mC_min;
 global mC_offset;
+global BOARD_HEIGHT;
+global BOARD_WIDTH;
+global BOARD_LENGTH;
+global INV_KINE;
+
+%DIMENSIONS OF BOARD
+BOARD_HEIGHT = 47; %DISTANCE TO BOARD FROM KINEMATIC 0
+BOARD_WIDTH = 30; %IN Y DIRECTION
+BOARD_LENGTH = 40; %IN X DIRECTION
 
 
 % If ARM_MOVE IS SET TO 0 THE OPERATES IN ITS NORMAL POSITION WITH 
@@ -40,13 +50,13 @@ ARM_MOVE = 0;
 
 
 % ALLOWED MOVEMENT OF ARM. AND OFFSET BETWEEN MOTOR AND KINEMATIC ZERO.
-mA_max = 1024;
+mA_max = 4095;
 mA_min = 0;
-mA_offset = 14;
+mA_offset = 131;
 
 mB_max = 925;
 mB_min = 150;
-mB_offset = 153;
+mB_offset = 151;
 
 mC_max = 1024;
 mC_min = 95;
@@ -74,6 +84,7 @@ HEIGHT = 50;
 BROADCAST_ID = 254;         %SENDS THE DATA TO ALL OF THE CONNECTED MOTORS.
 INST_SYNC_WRITE = 131;
 ANGLE_UNIT = 0.293;         
+ANGLE_UNIT_MX = 0.088;
 
 
 %AX-12A ADDRESSES
@@ -97,7 +108,12 @@ if res == 0
 else
     %SET the speed of the motors
     INIT_SPEED = 83;
-    calllib('dynamixel', 'dxl_write_word', BROADCAST_ID, MOVING_SPEED, INIT_SPEED);
-    
+    calllib('dynamixel', 'dxl_write_word', mA, MOVING_SPEED, 55);
+    calllib('dynamixel', 'dxl_write_word', mB, MOVING_SPEED, INIT_SPEED);
+    calllib('dynamixel', 'dxl_write_word', mC, MOVING_SPEED, INIT_SPEED);
+
     %Set the position of all of the motors
+    angles = invkine1(0,0,47)
+    INV_KINE = 1;
+    motor_angles_packet(angles(1),angles(2),angles(3))
 end
