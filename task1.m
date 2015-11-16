@@ -1,6 +1,6 @@
-worldPoints_path
+worldPoints_path;
 l = size(worldPoints_path,1);
-z = 46
+z = 47
 coords = zeros(l, 3);
 
 for i = 1:l

@@ -1,19 +1,21 @@
 %Finds the location and orientation of the central frame relative to the
 %camera.
 
-clear;
+%clear;
 
 %Load the calibration parameters
 load('cal.mat');
+
+local_complete = 0;
 
 %Set up camera 
 vid1 = imaq.VideoDevice('kinectv2imaq', 1);
 preview(vid1);
 %Take a picture of the central frame
-image_capture = imresize(fliplr(step(vid1)), [240 450]); 
+image_capture = imresize((step(vid1)), [240 450]);  % 
 filename = strcat('d:\code\Original.png');
 imwrite(image_capture,filename)
-release(vid1);
+%release(vid1);
 %Read the image into the program
 imOrig = imread(filename);
 %Undistort the image
@@ -97,6 +99,7 @@ z = camWldC(2); % z is the vertical value (y in world co-ordinates)
 centralFrame = [camWldC(3), camWldC(1), camWldC(2)];
 fprintf('x: %g, y: %g, z: %g.\nPose: %g.\nPitch: %g, Roll: %g, Yaw: %g.\n', x,y,z,pose,pitch,roll,yaw);
 %Show the origin on the image
+local_complete = 1;
 imshow(insertMarker(im, corner));
 %Save the camera parameter and central frame location.
 save('d:\code\local.mat', 'cameraParams', 'worldPoints', 'R', 't', 'corner', 'centralFrame', 'camWldC');

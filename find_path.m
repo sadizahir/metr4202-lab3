@@ -26,7 +26,7 @@ z = linspace(p1(3), p2(3), num_points);
 while (read_info(mA, MOVING, 1) || read_info(mB, MOVING, 1) || read_info(mC, MOVING, 1))
 end
 
-for i = 2:num_points
+for i = 2:num_points - 1
     move_point(x(i), y(i), z(i));
     x(i)
     y(i)

@@ -113,7 +113,7 @@ else
     calllib('dynamixel', 'dxl_write_word', mC, MOVING_SPEED, INIT_SPEED);
 
     %Set the position of all of the motors
-    angles = invkine1(0,0,47)
+    move_point(0,0,47)
     INV_KINE = 1;
-    motor_angles_packet(angles(1),angles(2),angles(3))
+    %motor_angles_packet(angles(1),angles(2),angles(3))
 end
