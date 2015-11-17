@@ -58,10 +58,10 @@ angles(2,3) = -b;
 angles(3,3) = -b;
 angles(4,3) = b;
 
-f_kine(angles(1,1), angles(1,2), angles(1,3));
-f_kine(angles(2,1), angles(2,2), angles(2,3));
-f_kine(angles(3,1), angles(3,2), angles(3,3));
-f_kine(angles(4,1), angles(4,2), angles(4,3));
+f_kine(angles(1,1), angles(1,2), angles(1,3))
+f_kine(angles(2,1), angles(2,2), angles(2,3))
+f_kine(angles(3,1), angles(3,2), angles(3,3))
+f_kine(angles(4,1), angles(4,2), angles(4,3))
 
 
 t1 = read_info(mA, PRESENT_POSITION, 2)*ANGLE_UNIT;
@@ -126,7 +126,7 @@ end
 
 
 
-angles;
+angles
 current_angles = [t1, t2, t3];
 
 

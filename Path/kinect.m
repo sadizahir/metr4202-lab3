@@ -2,8 +2,8 @@
 %
 
 tic
-clc
-clear
+%clc
+% clear
 %im=imread('obstacles4.bmp');
 
 
@@ -14,8 +14,10 @@ load('d:\code\local.mat');
 
 % CANNY EDGE
 
-vid1 = imaq.VideoDevice('kinectv2imaq', 1);
-img = (imresize(step(vid1), [240 450]));
+%vid1 = imaq.VideoDevice('kinectv2imaq', 1);
+
+orig_img = (imresize(step(vid1), [240 450]));
+[img ,~] = undistortImage(orig_img, cameraParams, 'OutputView', 'full');
 gimg = rgb2gray(img);
 im = edge(gimg, 'canny');
 square = strel('square',2);
@@ -54,18 +56,16 @@ imshow(im)
 % Peter Corke
 prm = PRM(im,'npoints', 120);
 
-
+imshow(img)
 
 start_h = impoint %[138,215];       
-start   = round(getPosition(start_h)) %round(start)       %getPosition(start_h)) %[152,147]; 
+start   =  round(getPosition(start_h))  %round(start)       %round(getPosition(start_h)) %[152,147]; 
 
 goal_h =  impoint %[315,194];      
-goal   = round(getPosition(goal_h))%round(goal)    %round(getPosition(goal_h))  %[315,70];
+goal   =  round(getPosition(goal_h))    % round(goal)    %round(getPosition(goal_h))  %[315,70];
 %prm = PRM(map);        % create navigation object
 %prm.display() 
 prm.char()
-
-
 
 x=0;
 while 1
@@ -78,14 +78,11 @@ while 1
     catch
         disp('No path found, trying again...')
         x=x+1;
-        if x == 15
+        if x == 5
             break
         end    
     end
 end
-
-
-
 
 m = prm.graph.path(prm.vstart);
 
@@ -98,7 +95,7 @@ p(1,:) = start;
 %append calculated path
 
 for i = 2:(size(m, 2)+ 1)      
-    p(i,:) = prm.graph.coord(m(i-1))';
+    p(i,:) = prm.graph.coord(m(i-1))' ;
 end
 
 %append goal to path
@@ -106,5 +103,8 @@ p(size(m, 2) + 2,:) = goal;
 
 %convert to world points
 worldPoints_path = pointsToWorld(cameraParams,R,t,p)
-
+% for i = 1: size(worldPoints_path,2)
+%     worldPoints_path(i,:) = worldPoints_path(i,:) %- [centralFrame(1,3),centralFrame(1,1)];
+% end
+% worldPoints_path
 toc

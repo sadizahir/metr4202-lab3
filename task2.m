@@ -1,10 +1,15 @@
 %Acupuncture
 % 
+
+%Manually add points here
+acupuncture_pts = [250 60; 100 80; 250 100]
+
+% If detecting hand
 % run('detector.m')
 
+%Comment this out if using detector
 bbox = [210    67    60    64];
 
-acupuncture_pts = [250 60; 100 80; 250 100]
 l = size(acupuncture_pts,1);
 z = 46
 coords = zeros(l, 3);
@@ -31,6 +36,7 @@ for i = 1:l
 end
  
  coords 
-%  for i = 1:j
-%      find_path(coords(i,:), coords(i+1,:))
-%  end
+  for i = 1:j
+      %Change this line so that we are using move_points( x, y, z)
+      find_path(coords(i,:), coords(i+1,:))
+  end

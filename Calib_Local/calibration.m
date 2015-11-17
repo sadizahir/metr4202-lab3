@@ -8,13 +8,13 @@ preview(vid1);
 NoOfImage = 30;
 %Take the photos of the checkboard
 for i = 1:NoOfImage
-    image_capture = imresize(fliplr(step(vid1)), [240 450]);  % take camera shot
+    image_capture = imresize((step(vid1)), [240 450]);  % take camera shot fliplr
     filename = strcat('d:\code\Image',int2str(i),'.png')
     imwrite(image_capture,filename)
     pause(0.333333); % wait 1/3 second
 end
 
-release(vid1);
+%release(vid1);
 
 % Define images to process
 imageFileNames = {'d:\code\Image1.png',...
