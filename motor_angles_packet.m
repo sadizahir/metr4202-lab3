@@ -26,7 +26,7 @@ global ARM_MOVE;
 
 
 %COVERT FROM KINEMATIC ANGLE TO DYNAMIXEL ANGLE
-t1_o = t1 + mA_offset
+t1_o = t1 + mA_offset;
 t2_o = t2 + mB_offset;
 t3_o = t3 + mC_offset;
 
@@ -34,17 +34,22 @@ t3_o = t3 + mC_offset;
 % angle_A = t1_o;
 % angle_B = t2_o;
 % angle_C = t3_o;
-t1_c = read_info(mA, PRESENT_POSITION, 2)*ANGLE_UNIT_MX%+mA_offset
+t1_c = read_info(mA, PRESENT_POSITION, 2)*ANGLE_UNIT_MX;%+mA_offset
+t2_c = read_info(mB, PRESENT_POSITION, 2)*ANGLE_UNIT;%+mA_offset
+t3_c = read_info(mC, PRESENT_POSITION, 2)*ANGLE_UNIT;%+mA_offset
+
 t1_ck = t1_c - mA_offset;
+t2_ck = t2_c - mB_offset;
+t3_ck = t3_c - mC_offset;
 
 %FIND THE MAXIMUM ANGLES IN DEGREES
-mA_max_d = mA_max*ANGLE_UNIT_MX;
-mB_max_d = mB_max*ANGLE_UNIT;
-mC_max_d = mC_max*ANGLE_UNIT;
-
-mA_min_d = mA_min*ANGLE_UNIT_MX;
-mB_min_d = mB_min*ANGLE_UNIT;
-mC_min_d = mC_min*ANGLE_UNIT;
+% mA_max_d = mA_max*ANGLE_UNIT_MX;
+% mB_max_d = mB_max*ANGLE_UNIT;
+% mC_max_d = mC_max*ANGLE_UNIT;
+% 
+% mA_min_d = mA_min*ANGLE_UNIT_MX;
+% mB_min_d = mB_min*ANGLE_UNIT;
+% mC_min_d = mC_min*ANGLE_UNIT;
 
 %CALCULATE THE DESIRED POSITION OF THE MOTORS
 % desired_A = round((t1+mA_offset)/ANGLE_UNIT);
@@ -110,8 +115,39 @@ elseif (t1_o > 360)
 %     t1_c = t1_c - 360
 end
 
-t1_ck
-angle_diff = t1_o - t1_c
+
+pos_A = round((t1_o)/ANGLE_UNIT_MX);
+pos_B = round((t2_o)/ANGLE_UNIT);
+pos_C = round((t3_o)/ANGLE_UNIT);
+
+% t1_ck
+% t1_c
+% t1_o
+% t2_o
+% t2_c
+% t3_o
+% t3_c
+angle1_diff = t1_o - t1_c;
+angle2_diff = t2_o - t2_c;
+angle3_diff = t3_o - t3_c;
+
+if (angle1_diff > 45 || angle1_diff < -45)
+%     display('angle1')
+    move_up()
+    calllib('dynamixel', 'dxl_write_word', mA, GOAL_POSITION, pos_A);
+    pause(0.5)
+elseif (angle2_diff > 45 || angle2_diff < -45)
+%         display('angle2')
+    move_up()
+    calllib('dynamixel', 'dxl_write_word', mC, GOAL_POSITION, pos_B-5);
+    pause(0.5) 
+elseif (angle3_diff > 45 || angle3_diff < -45)
+%         display('angle3')
+    move_up()
+    calllib('dynamixel', 'dxl_write_word', mC, GOAL_POSITION, pos_C);
+    pause(0.5)
+end
+
 % if (angle_diff > 45 || angle_diff < -45)
 %     display('moving up')
 %     %GET THE CURRENT LOCATION OF THE MOTORS
@@ -130,9 +166,7 @@ angle_diff = t1_o - t1_c
 % %     move_up(5)
 % end
 
-pos_A = round((t1_o)/ANGLE_UNIT_MX);
-pos_B = round((t2_o)/ANGLE_UNIT);
-pos_C = round((t3_o)/ANGLE_UNIT);
+
 
 
  % Make syncwrite packet
