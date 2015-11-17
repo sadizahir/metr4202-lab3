@@ -44,7 +44,8 @@ end
 if(inv1_valid)% || inv2_valid || inv3_valid || inv4_valid)
 %     display('There is a real solution')
 else
-    error('No real solution exists for %d, %d, %d', x,y,z)
+    fprintf('Could not invkine point %d %d %d\n', x, y, z);
+    return
 end
 
 
