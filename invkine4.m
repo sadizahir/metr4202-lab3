@@ -18,15 +18,19 @@ global L3;
 
 
 if (x == 0 && y == 0)
-%     display('on centre line')
+    display('on centre line')
 elseif (x >= 0 && y >= 0)
-%     display('Q1')
+    display('Q1')
 elseif (x >= 0 && y <= 0)
-%         display('Q2')
+    display('Q2')
 elseif (x <= 0 && y <= 0)
-%         display('Q3')
+%     display('Q3')
+    x = x + 2;
+    y = y + 2;
 elseif (x <= 0 && y >= 0)
-%         display('Q4')
+%     display('Q4')
+    x = x + 2;
+    y = y - 1;
 end
 
 d = sqrt(x^2 + y^2);
