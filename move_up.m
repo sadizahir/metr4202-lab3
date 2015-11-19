@@ -28,22 +28,23 @@ global mC_offset;
 % mB_min_d = mB_min*ANGLE_UNIT
 % mC_min_d = mC_min*ANGLE_UNIT
 
-%GET THE CURRENT LOCATION OF THE MOTORS
-t1 = read_info(mA, PRESENT_POSITION, 2)*ANGLE_UNIT_MX-mA_offset
-t2 = read_info(mB, PRESENT_POSITION, 2)*ANGLE_UNIT-mB_offset
-t3 = read_info(mC, PRESENT_POSITION, 2)*ANGLE_UNIT-mC_offset
-
-coords = f_kine(t1,t2,t3)
+%GET THE CURRENT LOCATION OF THE MOTORS IN KINEMATIC ANGLE
+t1 = read_info(mA, PRESENT_POSITION, 2)*ANGLE_UNIT_MX-mA_offset;
+t2 = read_info(mB, PRESENT_POSITION, 2)*ANGLE_UNIT-mB_offset;
+t3 = read_info(mC, PRESENT_POSITION, 2)*ANGLE_UNIT-mC_offset;
+fprintf('moving up from [%f,%f,%f]\n', t1, t2, t3);
+coords = f_kine(t1,t2,t3);
 % move_point(coords(1), coords(2), coords(3)-3);
-iv = invkine1(coords(1), coords(2), coords(3)-3)
-% f_kine(iv(1), iv(2), iv(3))
+iv = invkine(coords(1), coords(2), coords(3)-3);
+f_kine(iv(1), iv(2), iv(3));
 
 
-
+%CONVERT FROM KINEMATIC TO DYNAMIXEL ANGLE
 a1 = iv(1) + mA_offset;
 a2 = iv(2) + mB_offset;
 a3 = iv(3) + mC_offset;
 
+%ENSURE REAL ANGLE.
 if (a1 < 0)
 %     display('mA < 0'); 
     a1 = 360 + a1;

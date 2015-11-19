@@ -19,21 +19,21 @@ global L3;
 
 % if (x == 0 && y == 0)
 %     display('on centre line')
-%     x = x - 2.5;
-%     y = y - 2;
-% elseif (x > 0 && y > 0)
+% %     x = x - 1;
+% %     y = y - 1;
+% elseif (x >= 0 && y >= 0)
 %     display('Q1')
 %     x = x + 2.5;
 %     y = y - 1;
-% elseif (x > 0 && y <= 0)
+% elseif (x >= 0 && y <= 0)
 %      display('Q2')
 %      x = x + 2.5;
 %      y = y;
-% elseif (x < 0 && y < 0)
+% elseif (x <= 0 && y <= 0)
 %      display('Q3')
 %      x = x;% + 2.5;
 %      y = y - 5.5;
-% elseif (x < 0 && y < 0)
+% elseif (x <= 0 && y >= 0)
 %      display('Q4')
 %      x = x + 3.5;
 %      y = y + 1;

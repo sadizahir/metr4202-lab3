@@ -38,28 +38,26 @@ global BOARD_LENGTH;
 global INV_KINE;
 
 %DIMENSIONS OF BOARD
-BOARD_HEIGHT = 47; %DISTANCE TO BOARD FROM KINEMATIC 0
-BOARD_WIDTH = 30; %IN Y DIRECTION
-BOARD_LENGTH = 40; %IN X DIRECTION
-
+BOARD_HEIGHT = 46.5; %DISTANCE TO BOARD FROM KINEMATIC 0
+BOARD_WIDTH = 15; %IN Y DIRECTION
+BOARD_LENGTH = 20; %IN X DIRECTION
 
 % If ARM_MOVE IS SET TO 0 THE OPERATES IN ITS NORMAL POSITION WITH 
 % mB AND mA > 0. IF THE ARM TRIES TO MOVE INTO A POSITION IN THE 'GREY ZONE'
 % ARM_MOVE BECOMES 1 AND THE ARM MOVES WITH 
 ARM_MOVE = 0;
 
-
 % ALLOWED MOVEMENT OF ARM. AND OFFSET BETWEEN MOTOR AND KINEMATIC ZERO.
-mA_max = 4095;
-mA_min = 0;
-mA_offset = 131;
+mA_max = 4095;  %360.36  -> 229.36
+mA_min = 0;     %0      -> -131
+mA_offset = 131; 
 
-mB_max = 925;
-mB_min = 150;
+mB_max = 925;    %271 -> - 120
+mB_min = 150;    %43.95 -> -107.1
 mB_offset = 151;
 
-mC_max = 1024;
-mC_min = 95;
+mC_max = 1024;   %300 -> 150
+mC_min = 95;    %27.8 -> -122
 mC_offset = 150;
 
 
@@ -75,7 +73,7 @@ mC = 3;
 %Link Lengths
 L1 = 3;
 L2 = 17.7;
-L3 = 33;
+L3 = 29;
 
 %hEIGHT OF FIRST MOTOR
 HEIGHT = 50; 
@@ -113,7 +111,7 @@ else
     calllib('dynamixel', 'dxl_write_word', mC, MOVING_SPEED, INIT_SPEED);
 
     %Set the position of all of the motors
-    move_point(0,0,47)
+    move_point(0,0,BOARD_HEIGHT)
     INV_KINE = 1;
     %motor_angles_packet(angles(1),angles(2),angles(3))
 end

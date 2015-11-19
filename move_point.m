@@ -10,7 +10,7 @@ global mB_offset;
 global mC_offset;
 
 
-inv1 = invkine1(x,y,z);
+inv1 = invkine(x,y,z);
 % inv2 = invkine2(x,y,z);
 % inv3 = invkine3(x,y,z);
 % inv4 = invkine4(x,y,z);
@@ -103,5 +103,5 @@ end
 
 % angles = find_angles(x,y,z)
 % motor_angles_packet(inv(1), inv(2), inv(3))
-inv1
+inv1;
 motor_angles_packet(inv1(1), inv1(2), inv1(3))
