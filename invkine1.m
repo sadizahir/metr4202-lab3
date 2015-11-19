@@ -19,15 +19,15 @@ global L3;
 
 if (x == 0 && y == 0)
     display('on centre line')
-    x = x - 1;
-    y = y - 1;
+    x = x-2.5;
+    y = y;
 elseif (x >= 0 && y >= 0)
-%     display('Q1')
-    x = x;
-    y = y - 1;
+    display('Q1')
+    x = x+2.5;
+    y = y-3.5;
 elseif (x >= 0 && y <= 0)
-%      display('Q2')
-     x = x + 2.5;
+     display('Q2')
+     x = x;
      y = y;
 elseif (x <= 0 && y <= 0)
      display('Q3')

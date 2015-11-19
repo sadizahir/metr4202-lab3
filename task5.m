@@ -28,16 +28,12 @@ elseif (strcmp('square', type))
     coords = [c1;c2;c3;c4];
 %     move_up();
 elseif (strcmp('circle', type))
-    prompt = 'centre at [x,y,z]: ';
+    prompt = 'centre at [x,y]: ';
     s = input(prompt);
-    prompt = 'height: ';
-    height = input(prompt);
-    prompt = 'width: ';
-    width = input(prompt);
-    a = width/2;
-    b = height/2;
+    prompt = 'radius: ';
+    r = input(prompt);
     c = [s(1),s(2), BOARD_HEIGHT];
-    find_path_ellipse(b,a,c,0,2*pi)
+    find_path_circle(r,c,0,2*pi)
 elseif(strcmp('happyface', type))
     prompt = 'start at [x,y,z]: ';
     s = input(prompt);

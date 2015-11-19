@@ -3,10 +3,14 @@ function angles = invkine(x, y, z)
 
 z = z + (abs(x)/20);
 
-
+x
+y
+z
 
 if (x < 0)
+    display('invkine4')
     angles = invkine4(x,y,z);
 else
+    display('invkine1')
     angles = invkine1(x,y,z);
 end
